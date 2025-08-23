@@ -1,0 +1,3 @@
+tentando arrumar o problema do submódulo do git para o projeto_regressao_linear
+
+Não deu certo

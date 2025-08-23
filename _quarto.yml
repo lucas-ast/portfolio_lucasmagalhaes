@@ -1,0 +1,59 @@
+project:
+  type: website
+
+website:
+  title: "Portfólio"
+  navbar:
+    left:
+      - text: "Início"
+        href: index.qmd
+      - text: "Acadêmico"
+        menu:
+          - text: "Amostragem"
+            href: academico/projeto_amostragem/index.qmd
+          - text: "Regressão"
+            href: academico/projeto_regressao_linear/index.qmd
+      - text: "Profissional"
+        menu:
+          - text: "Projeto 1"
+            href: profissional/projeto_1/index.qmd
+          - text: "Projeto 2"
+            href: profissional/projeto_2/index.qmd
+
+  sidebar:
+    - id: amostragem
+      title: "Amostragem"
+      contents:
+        - text: "Início"
+          href: academico/projeto_amostragem/index.qmd
+        - text: "Semana 1 — Introdução à Disciplina de Amostragem"
+          href: academico/projeto_amostragem/semana1.qmd
+        - text: "Semana 2 — Definições, Estimadores e Introdução ao Teorema 1 (Média Amostral)"  
+          href: academico/projeto_amostragem/semana2.qmd
+        - text: "Semana 3 — Teorema 2 e Introdução ao Erro Padrão da Média"
+          href: academico/projeto_amostragem/semana3.qmd
+        - text: "Semana 4 — Teorema 3, Aplicação dos Teoremas 2 e 3 e Introdução ao Intervalo de Confiança"
+          href: academico/projeto_amostragem/semana4.qmd
+        - text: "Semana 5 — Tamanho da Amostra com Base no Erro e Estimação de uma Proporção"
+          href: academico/projeto_amostragem/semana5.qmd
+        - text: "Semana 6 — Cálculo do Tamanho de Amostra para uma Proporção e Exemplo"
+          href: academico/projeto_amostragem/semana6.qmd
+        - text: "Semana 7 — Estimador de uma Razão e Estimador de uma Proporção em Amostragem por Clusters"
+          href: academico/projeto_amostragem/semana7.qmd
+        - text: "Semana 8 — Amostragem Aleatória Estratificada"
+          href: academico/projeto_amostragem/semana8.qmd
+        - text: "Semana 9 — Alocação Ótima, Controle de Custo, Controle de Precisão"
+          href: academico/projeto_amostragem/semana9.qmd
+    - id: regressao
+      title: "Regressão"
+      contents:
+        - academico/projeto_regressao_linear/index.qmd
+        - academico/projeto_regressao_linear/regressao_linear.qmd
+     
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    css: styles.css

@@ -1,0 +1,21 @@
+---
+title: "Lucas Magalhães Ast"
+format: html
+---
+
+# Bem-vindo ao meu Portfólio
+
+Aqui você encontrará meus projetos acadêmicos, profissionais e pessoais na área de estatística e economia.
+
+## Projetos
+
+- [Projeto de Amostragem](academico/projeto_amostragem/index.qmd)  
+  Objetivo: consolidar as anotações das aulas da disciplina de Amostragem, facilitando o entendimento dos fundamentos teóricos e sua aplicação em situações práticas que envolvem métodos de amostragem.
+  
+- [Projeto de Regressão Linear](academico/projeto_regressao_linear/index.qmd)  
+  Objetivo: compreender de forma simples o funcionamento da regressão linear, desde suas definições até a aplicação em análises práticas.   
+
+  
+---
+
+*Desenvolvido com [Quarto](https://quarto.org/).*

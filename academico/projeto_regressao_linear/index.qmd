@@ -1,0 +1,24 @@
+---
+title: "Início"
+format: html
+---
+
+Este projeto contém as anotações e exemplos desenvolvidos durante o estudo de regressão linear para utilizar em algumas disciplinas na UFPR e no trabalho.
+
+## Conteúdos
+
+- O que é Regressão Linear
+- Regressão Linear Simples
+- O que é Coeficiente Angular ($\beta_1$)
+- O que é o Erro ($\varepsilon$)
+- Exemplo de Regressão Linear Simples
+- Cálculo dos Coeficientes
+- Exemplo Prático em Pyhton (Regressão Linear Simples)
+- Regressão Linear Múltipla
+- Exemplo Prático em Python (Regressão Linear Múltipla)
+- Exemplo Prático com gráfico Comparando a Regressão Linear Simples e Múltipla
+- Interpretação e Limitações Preditivas da Regressão Linear
+
+---
+
+[⬅ Voltar ao Portfólio](../../index.qmd)

@@ -1,0 +1,108 @@
+/* ===========================
+   Estilos gerais do site
+=========================== */
+
+/* Fundo e fonte geral */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa; /* fundo claro */
+    color: #333333; /* cor do texto */
+    line-height: 1.6;
+}
+
+/* Títulos */
+h1, h2, h3, h4, h5 {
+    color: #2c3e50; /* azul escuro */
+}
+
+/* Links */
+a {
+    color: #007bff; /* azul padrão de links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+
+/* Fundo da sidebar */
+.quarto-sidebar {
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    padding: 1em;
+}
+
+/* Títulos da sidebar */
+.quarto-sidebar .sidebar-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #2c3e50;
+    margin-bottom: 0.5em;
+}
+
+/* Links da sidebar */
+.quarto-sidebar a {
+    display: block;
+    padding: 0.3em 0;
+    color: #007bff;
+}
+
+.quarto-sidebar a:hover {
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+/* Sidebar ativa (página atual) */
+.quarto-sidebar .active {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+/* ===========================
+   Blocos de código
+=========================== */
+pre, code {
+    background-color: #f1f3f5;
+    border-radius: 4px;
+    padding: 0.2em 0.4em;
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* ===========================
+   Tabelas
+=========================== */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+}
+
+table th {
+    background-color: #f1f3f5;
+    color: #2c3e50;
+}
+
+/* ===========================
+   Botões (se houver)
+=========================== */
+button, .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.4em 0.8em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,508 @@
+---
+title: "Regressão Linear: Simples e Múltipla"
+author: Lucas Magalhães Ast
+format: html
+toc: true
+---
+
+## O que é Regressão Linear?
+
+A regressão linear é uma técnica estatística usada para modelar a relação entre variáveis. O objetivo é explicar uma variável dependente $y$ com base em uma ou mais variáveis independentes $x$.
+
+---
+
+## Regressão Linear Simples
+
+### Definição
+
+Modela a relação entre duas variáveis:  
+- Uma variável dependente $y$  
+- Uma variável independente $x$
+
+---
+
+### Fórmula
+
+$$
+\hat{y} = \beta_0 + \beta_1 x + \varepsilon
+$$
+
+- $\hat{y}$: valor previsto  
+- $\beta_0$: intercepto  
+- $\beta_1$: coeficiente angular  
+- $x$: variável explicativa
+- $\varepsilon$: erro  
+
+---
+
+## O que é o Intercepto ($\beta_0$)?
+
+O intercepto (também chamado de coeficiente linear, $\beta_0$ ou $a$ em alguns livros) é o valor de $y$ quando $x=0$, ou onde a reta cruza o eixo $y$.
+
+Ele dá a "altura de partida" da reta. Em alguns contextos, o intercepto tem interpretação prática (ex: salário inicial quando anos de experiência = 0).
+
+## O que é o Coeficiente Angular ($\beta_1$)?
+
+É o número que indica **quanto a variável $y$ varia** quando $x$ aumenta em uma unidade.
+
+- Se $\beta_1 = 3$, cada aumento de 1 unidade em $x$ causa aumento de 3 unidades em $y$.
+- Se $\beta_1 < 0$, a relação é decrescente.
+
+## O que é o Erro ($\varepsilon$)?
+
+Representa a diferença entre o valor observado da variável dependente $y$ e o valor previsto pelo modelo $\hat{y}$
+
+$$
+\varepsilon = y - \hat{y}
+$$
+
+Ele representa tudo que influência $y$ e que não é explicado pela variável explicativa $x$ incluída no modelo.
+
+Em outras palavras:
+
+- O modelo tenta explicar $y$ com base em $x$ através da relação linear $\hat{y} = \beta_0 + \beta_1 x$.
+- O erro é o que sobra da parcela que $y$ que não pode ser prevista pelo modelo.
+- Inclui fatores aleatórias, ruído de medição, variáveis omitidas ou influências externas não capturadas pelo modelo.
+
+Se os dados seguem exatamente a reta do modelo, o erro será zero. Em dados reais, os erros quase sempre são diferentes de zero, e a análise deles ajuda a avaliar o quão bom é o modelo.
+
+O exemplo a seguir segue exatamente a reta do modelo e por isso o erro acaba sendo zero.
+
+---
+
+## Exemplo de Regressão Linear Simples
+
+Suponha a função:
+
+$$
+y = 2 + 3x
+$$
+
+| x | y |
+|---|---|
+| 0 | 2 |
+| 1 | 5 |
+| 2 | 8 |
+
+- Intercepto $\beta_0 = 2$
+
+- Inclinação $\beta_1 = 3$
+
+---
+
+## Cálculo dos Coeficientes
+
+O método dos mínimos quadrados calcula os coeficientes que minimizam a soma dos quadrados dos erros.
+
+Fórmula do coeficiente angular:
+$$
+\beta_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+$$
+
+Fórmula do intercepto:
+$$
+\beta_0 = \bar{y} - \beta_1 \bar{x}
+$$
+
+### Passos do MQO
+
+Queremos encontrar os coeficientes $\beta_0$ e $\beta_1$ que melhor ajustam o modelo:
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+
+#### Calcular as médias
+
+$$
+\begin{aligned}
+\bar{x} &= \frac{0 + 1 + 2}{3} = 1 \\
+\bar{y} &= \frac{2 + 5 + 8}{3} = 5
+\end{aligned}
+$$
+
+#### Calcular o coeficiente angular ($\beta_1$)
+
+$$
+\beta_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+$$
+
+Montando a tabela:
+
+| $x_i$ | $y_i$ | $x_i - \bar{x}$ | $y_i - \bar{y}$ | $(x_i - \bar{x})(y_i - \bar{y})$ | $(x_i - \bar{x})^2$ |
+|------|------|------------------|------------------|----------------------------------|---------------------|
+| 0    | 2    | -1               | -3               | 3                                | 1                   |
+| 1    | 5    | 0                | 0                | 0                                | 0                   |
+| 2    | 8    | 1                | 3                | 3                                | 1                   |
+
+Somando:
+
+$$
+\beta_1 = \frac{3 + 0 + 3}{1 + 0 + 1} = \frac{6}{2} = 3
+$$
+
+#### Calcular o intercepto ($\beta_0$)
+
+$$
+\beta_0 = \bar{y} - \beta_1 \bar{x} = 5 - 3 \cdot 1 = 2
+$$
+
+---
+
+### Resultado:
+
+A equação estimada é:
+
+$$
+\hat{y} = 2 + 3x
+$$
+
+- Intercepto $\beta_0 = 2$
+- Inclinação $\beta_1 = 3$
+
+
+---
+
+## Exemplo Prático em Python (Regressão Linear Simples)
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Dados simulados
+x = np.array([1, 2, 3, 4, 5]).reshape(-1, 1)
+y = np.array([2, 4, 5, 4, 5])
+
+# Criando e ajustando o modelo
+modelo = LinearRegression()
+modelo.fit(x, y)
+
+# Previsões
+y_pred = modelo.predict(x)
+
+# Gráfico
+plt.figure(figsize=(8,6))
+plt.scatter(x, y, color='blue', label='Dados reais')
+plt.plot(x, y_pred, color='red', label='Reta de regressão')
+
+# Adicionando os erros (resíduos) como linhas verticais
+for xi, yi, ypi in zip(x, y, y_pred):
+    plt.vlines(xi, ypi, yi, colors='green', linestyles='dashed', alpha=0.8)
+
+# Configuração do gráfico
+plt.title("Regressão Linear com Erros (Resíduos)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+## Regressão Linear Múltipla
+
+### Definição
+
+Estende a regressão simples para incluir mais de uma variável explicativa.
+
+### Fórmula
+
+$$
+\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n
+$$
+
+- Cada $\beta_i$ representa o efeito isolado de $x_i$ sobre $y$, mantendo os outros fixos.
+
+### Exemplo:
+Previsão do preço de um carro com base em:
+- $x_1$: quilometragem
+- $x_2$: ano
+- $x_3$: tipo de combustível
+
+$$
+\hat{y} = 50000 - 0.05x_1 + 300x_2 + 1000x_3
+$$
+
+###  Forma matricial do MQO
+
+Para múltiplas variáveis, usamos a fórmula matricial:
+
+$$
+\hat{\beta} = (X^\top X)^{-1} X^\top y
+$$
+
+Onde:
+
+- $X$: matriz de variáveis (com uma coluna de 1s para o intercepto)
+- $y$: vetor de respostas
+- $\hat{\beta}$: vetor de coeficientes $(\beta_0, \beta_1, \beta_2, \beta_3)$
+
+---
+
+### Suponha os seguintes dados:
+
+| $x_1$ (km) | $x_2$ (ano) | $x_3$ (comb.) | $y$ (preço) |
+|------------|-------------|---------------|-------------|
+| 20000      | 2020        | 0             | 56000       |
+| 40000      | 2019        | 1             | 55200       |
+| 10000      | 2021        | 1             | 59000       |
+
+---
+
+### Montando as matrizes
+
+$$
+X =
+\begin{bmatrix}
+1 & 20000 & 2020 & 0 \\
+1 & 40000 & 2019 & 1 \\
+1 & 10000 & 2021 & 1 \\
+\end{bmatrix},
+\quad
+y =
+\begin{bmatrix}
+56000 \\
+55200 \\
+59000 \\
+\end{bmatrix}
+$$
+
+---
+
+### Aplicando o MQO
+
+Usamos a fórmula:
+
+$$
+\hat{\beta} = (X^\top X)^{-1} X^\top y
+$$
+
+O cálculo envolve:
+
+1. Multiplicar $X^\top X$
+2. Inverter $(X^\top X)$
+3. Multiplicar pelo vetor $X^\top y$
+
+Esse processo gera os coeficientes estimados:
+
+$$
+\hat{\beta} =
+\begin{bmatrix}
+50000 \\
+-0.05 \\
+300 \\
+1000 \\
+\end{bmatrix}
+$$
+
+---
+
+### Resultado:
+
+A equação estimada da regressão múltipla é:
+
+$$
+\hat{y} = 50000 - 0.05x_1 + 300x_2 + 1000x_3
+$$
+
+---
+
+### Observação:
+
+Esse modelo diz, por exemplo, que:
+- Cada quilômetro rodado reduz o valor do carro em R$ 0,05
+- Cada ano de fabricação a mais aumenta o valor em R$ 300
+- Veículos a álcool valem R$ 1.000 a mais, em média, que os a gasolina (assumindo $x_3 = 1$)
+
+---
+
+## Exemplo Prático em Python (Regressão Linear Múltipla)
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Variáveis explicativas (2 variáveis: x1 e x2)
+X = np.array([
+    [1, 2],
+    [2, 1],
+    [3, 3],
+    [4, 5],
+    [5, 4]
+])
+
+# Variável resposta
+y = np.array([5, 6, 9, 11, 10])
+
+# Ajustando o modelo
+modelo = LinearRegression()
+modelo.fit(X, y)
+
+# Resultados
+intercepto = modelo.intercept_
+coeficientes = modelo.coef_
+y_pred = modelo.predict(X)
+
+# Calculando o erro (resíduo)
+erro = y - y_pred  # ε_i = y_i - ŷ_i
+
+# Impressões
+print("Intercepto (b0):", intercepto)
+print("Coeficientes (b1, b2):", coeficientes)
+print("Valores previstos (ŷ):", y_pred)
+print("Erro (ε = y - ŷ):", erro)
+print("Soma dos erros (≈0):", np.sum(erro))
+print("Média dos erros (≈0):", np.mean(erro))
+
+# Gráfico dos resíduos
+plt.figure(figsize=(8,5))
+plt.scatter(range(len(y)), y, label='Valores observados', color='blue')
+plt.scatter(range(len(y_pred)), y_pred, label='Valores previstos', color='red')
+for i in range(len(y)):
+    plt.vlines(i, y_pred[i], y[i], color='gray', linestyle='--')  # linhas verticais = erros
+plt.axhline(y=np.mean(y), color='black', linestyle=':', linewidth=1, label='Média de y')
+plt.xlabel('Observação')
+plt.ylabel('y')
+plt.title('Regressão Linear Múltipla - Observado vs Previsto e Erros')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+## Exemplo prático com gráfico comparando a regressão linear simples e múltipla
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from mpl_toolkits.mplot3d import Axes3D
+
+np.random.seed(42)
+
+# ===== Regressão Linear Simples =====
+# Dados simulados
+x_s = np.linspace(0, 10, 20)
+y_s_true = 2 * x_s + 5
+y_s = y_s_true + np.random.normal(0, 3, size=len(x_s))
+
+# Ajuste (OLS)
+coef_s = np.polyfit(x_s, y_s, 1)           # [b1, b0]
+y_s_hat = np.polyval(coef_s, x_s)           # previsões na reta ajustada
+
+# ===== Regressão Linear Múltipla (2 variáveis) =====
+# Malha de pontos para (x1, x2)
+x1 = np.linspace(0, 10, 10)
+x2 = np.linspace(0, 10, 10)
+x1g, x2g = np.meshgrid(x1, x2)
+
+# Plano verdadeiro + ruído
+y_m_true = 1.5 * x1g + 2.0 * x2g + 3
+y_m = y_m_true + np.random.normal(0, 3, size=y_m_true.shape)
+
+# Ajuste (OLS) com scikit-learn
+X_m = np.column_stack([x1g.ravel(), x2g.ravel()])
+reg = LinearRegression().fit(X_m, y_m.ravel())
+b0, b1, b2 = reg.intercept_, reg.coef_[0], reg.coef_[1]
+y_m_hat = (b0 + b1 * x1g + b2 * x2g)
+
+# ===== Plot =====
+fig = plt.figure(figsize=(14, 6))
+
+# (1) Simples: pontos, reta e erros (distância vertical)
+ax1 = fig.add_subplot(1, 2, 1)
+ax1.scatter(x_s, y_s, label="Observado")
+ax1.plot(x_s, y_s_hat, label="Reta ajustada")
+for xi, yi, yhi in zip(x_s, y_s, y_s_hat):
+    ax1.plot([xi, xi], [yi, yhi], linestyle="--", alpha=0.6)  # erro vertical
+ax1.set_title("Regressão Linear Simples\nErro = distância vertical até a reta")
+ax1.set_xlabel("x")
+ax1.set_ylabel("y")
+ax1.legend()
+ax1.grid(True)
+
+# (2) Múltipla: pontos, plano e erros (distância vertical)
+ax2 = fig.add_subplot(1, 2, 2, projection="3d")
+ax2.scatter(x1g, x2g, y_m, label="Observado")
+ax2.plot_surface(x1g, x2g, y_m_hat, alpha=0.5)
+for xi, xj, yi, yhi in zip(x1g.ravel(), x2g.ravel(), y_m.ravel(), y_m_hat.ravel()):
+    ax2.plot([xi, xi], [xj, xj], [yi, yhi], linestyle="--", alpha=0.6)  # erro vertical
+ax2.set_title("Regressão Linear Múltipla\nErro = distância vertical até o plano")
+ax2.set_xlabel("x1")
+ax2.set_ylabel("x2")
+ax2.set_zlabel("y")
+ax2.legend()
+
+plt.tight_layout()
+plt.show()
+
+```
+
+---
+## Interpretação e Limitações Preditivas da Regressão Linear
+
+A regressão linear é frequentemente usada como modelo preditivo, mas é importante entender suas reais capacidades e limitações.
+
+### O que a Regressão Linear faz bem?
+
+A regressão linear drescreve a tendência média de uma variável resposta $y$ em função de uma ou mais variáveis explicativas $x$.
+
+Ela é excelente para:
+
+- Modelar relações lineares simples
+- Observar comportamentos médios
+- Interpretar coeficientes (quanto uma variável impacta a outra, em média)
+- Avaliação descritiva e inferencial
+
+---
+
+### Como modelo preditivo?
+
+A regressão linear não é robusta como modelo preditivo em situações reais com dados complexos. Ela assume uma série de condições ideais:
+
+1. Linearidade da relação entre $x$ e $y$:  
+   Se a relação real entre $x$ e $y$ não for linear, o modelo ajusta uma reta/plano onde a relação é curva ou mais complexa, então o “erro” que sobra (resíduo) não é mais puro ruído, mas carrega padrão que deveria estar na parte explicada.  
+2. Homocedasticidade (variância constante dos resíduos):  
+   Quando a variância do erro muda com $x$, as estimativas de coeficientes ainda podem ser não-viesadas, mas as previsões terão incertezas mal estimadas, aumentando a chance de erros grandes.     
+3. Normalidade dos erros:  
+   Essencial para validade de testes e intervalos de confiança. Se violada, a incerteza da previsão é mal quantificada, afetando a confiabilidade das predições.   
+4. Ausência de multicolinearidade (na regressão múltipla):  
+   Quando variáveis explicativas estão muito correlacionadas, o modelo tem dificuldade em distinguir seus efeitos individuais, com coeficientes instáveis, pequenas mudanças nos dados geram grandes mudanças nas previsões.
+
+Quando essas condições não são atendidas, a capacidade preditiva cai drasticamente.
+
+---
+
+### Forma correta de interpretar
+
+- Regressão linear é um método estatístico que estima a relação média entre uma variável resposta e uma ou mais variáveis explicativas.
+
+- Embora útil para descrever tendências, possui limitações como modelo preditivo em cenários complexos ou não lineares.
+
+- Regressão linear é útil para descrever a tendência média de como $y$ varia em função de $x$ (ou de vários $x$, no caso múltiplo).
+
+---
+
+### Quando usar regressão linear?
+
+Use regressão linear quando seu objetivo for:
+
+- Entender uma relação média entre variáveis
+- Testar hipóteses estatísticas
+- Explicar variações médias em $y$
+- Prever dentro de um intervalo bem comportado, onde os dados sigam aproximadamente uma tendência linear
+
+---
+
+### Modelos alternativos para previsão robusta
+
+Se seu objetivo é previsão com alta acurácia, considere modelos mais sofisticados, como:
+
+- Regressão polinomial
+- Árvores de decisão e Random Forest
+- Regressão Lasso/Ridge
+- Modelos de séries temporais (ARIMA, Prophet)
+- Redes neurais (deep learning)
+
+---
+
+### Conclusão
+
+A regressão linear é uma excelente ferramenta para representar tendências e compreender relações entre variáveis, mas deve ser usada com cautela como modelo preditivo em contextos reais complexos.

@@ -1,0 +1,212 @@
+---
+title: "Semana 1"
+author: Lucas Magalhães Ast
+format: html
+toc: true
+---
+
+## [Aula 01 – Etapas de uma Pesquisa por Amostragem](https://youtu.be/mu8u93fDKCY?si=sPKq5nXEBOyEkaAr)
+
+#### Etapas:
+
+1. **Definir claramente os objetivos da pesquisa**  
+   - É o ponto de partida de qualquer estudo. Saber o que se quer investigar (por exemplo: média de renda, proporção de desempregados, etc).
+
+2. **Definir claramente qual é a população-alvo**  
+   - A população-alvo é o conjunto total de elementos sobre os quais se deseja tirar conclusões.
+   - Pode ser diferente da população disponível (ou população amostrada), que é aquela da qual podemos realmente obter dados.
+   - Em situações ideais, a população-alvo coincide com a população amostrada.
+
+3. **Definir claramente os dados a serem levantados**  
+   - Determinar as variáveis de interesse (por exemplo: idade, escolaridade, renda, etc).
+   - É importante que os dados coletados estejam de acordo com os objetivos estabelecidos.
+
+4. **Definir a precisão desejada**  
+   - Envolve determinar o grau de incerteza aceitável nas estimativas.
+   - Para diminuir a incerteza:  
+     → É necessário aumentar o tamanho da amostra  
+     → O que gera maior **custo** e maior **tempo de coleta**.
+
+   - Lembre-se que como só observamos uma parte da população, há incerteza nas estimativas:
+     $$
+     |\hat{\delta}(x) - \delta| \rightarrow 0 \quad \text{quando} \quad n \rightarrow N
+     $$
+
+5. **Definir o método a ser usado na coleta dos dados**  
+   - Pode ser entrevista, questionário online, telefone, observação direta, etc.
+
+6. **Definir quem são as unidades de coleta**  
+   - Unidade de coleta é o elemento da população sobre o qual as informações serão obtidas (ex.: pessoa, domicílio, empresa...).
+
+7. **Definir o plano amostral (forma de levantamento dos dados)**  
+   - Deve considerar:
+     - Precisão desejada
+     - Custos envolvidos
+     - Tipo de amostragem (aleatória simples, estratificada, por conglomerados etc)
+
+8. **Realizar o pré-teste (ou teste piloto)**  
+   - Aplicar o questionário/teste em pequena escala para verificar se tudo está funcionando como planejado.
+   - Etapa essencial para corrigir problemas antes da pesquisa principal.
+
+9. **Organização do campo de trabalho**  
+   - Planejar cronogramas, equipes, logística da coleta de dados, treinamentos.
+
+10. **Realização da pesquisa**  
+    - Coleta efetiva dos dados conforme o plano estabelecido.
+
+11. **Resumo e análise dos dados**  
+    - Tabulação, limpeza e análise estatística das informações coletadas.
+
+12. **Relatório final**  
+    - Documento com os resultados, conclusões e possíveis recomendações baseadas nos dados.
+
+## [Aula 02 – TPA vs TAC e Tipos de Amostragem](https://youtu.be/VQK31xRYBRw?si=1zXfGslafvbTlMwN)
+
+#### Diferença entre TPA e TAC
+
+* **TPA (Teoria da Pesquisa por Amostragem)**:
+
+  * Abordagem moderna.
+  * Não há necessidade de especificar a distribuição da variável de interesse.
+  * Trabalha com o conceito de variáveis aleatórias independentes e identicamente distribuídas (i.i.d.).
+  * Exemplo: $X \sim \text{Exp}(\beta) \Rightarrow x_1, x_2, \ldots, x_n \sim \text{A.V.A.I.I.D.}$
+  * O tamanho da população $N$ é **finito** e conhecido.
+
+* **TAC (Teoria da Amostragem Clássica)**:
+
+  * Abordagem mais tradicional.
+  * Supõe conhecimento da distribuição da variável.
+  * Não se preocupa com o tamanho da população (assume infinita).
+
+#### Tipos de Amostragem
+
+* **Amostragem probabilística**:
+
+  * Cada unidade da população tem uma probabilidade conhecida e diferente de zero de ser incluída na amostra.
+  * Representação:
+
+    ```
+    População: N
+               ___________
+              /    S₁     \
+             /_____________\
+            /      S₂       \
+           /_________________\
+          /        S₃         \
+         /_____________________\
+        /           ⋮          \
+       /_________________________\
+                    Sₘ
+
+    Cada estrato Sₘ tem uma probabilidade πₘ associada.
+    ```
+
+* **Amostragem não probabilística** (exemplos):
+
+  * Amostra selecionada em parte da população (ex: alunos apenas de um curso).
+  * Amostra selecionada acidentalmente (ex: quem estava disponível).
+  * Amostra de elementos típicos.
+  * Amostra de voluntários.
+
+Essas técnicas não asseguram representatividade estatística, mas são úteis em estudos exploratórios ou com limitações práticas.
+
+---
+
+## [Aula 03 – Amostragem Aleatória Simples (AAS)](https://youtu.be/jz1iTGsHaAo?si=4dHznR1hL-LW42_L)
+
+#### Conceito
+
+A **Amostragem Aleatória Simples (AAS)** consiste em selecionar, **sem reposição**, uma amostra de tamanho $n$ a partir de uma população de tamanho $N$, de forma que **todas as combinações possíveis de $n$ unidades da população tenham a mesma probabilidade de serem escolhidas**.
+
+- $N$: Tamanho da população  
+- $n$: Tamanho da amostra  
+- $y$: Variável de interesse  
+- $y_i$: Valor da variável para a unidade $i$
+
+$$
+(y_1, y_2, y_3, \dots, y_N)
+$$
+
+#### Probabilidade de seleção de uma amostra específica
+
+Ao selecionar uma amostra de tamanho $n$ **sem reposição**, a **probabilidade de selecionar uma combinação específica de unidades** é dada por:
+
+$$
+P(\text{amostra destacada}) = \frac{n}{N} \cdot \frac{n - 1}{N - 1} \cdot \frac{n - 2}{N - 2} \cdot \ldots \cdot \frac{1}{N - n + 1}
+$$
+
+Essa expressão corresponde ao produto das probabilidades de selecionar sucessivamente unidades diferentes da população, sem reposição.
+
+Podemos reescrever isso de forma mais compacta como:
+
+$$
+P(\text{amostra destacada}) = \frac{n!(N - n)!}{N!}
+$$
+
+Ou ainda, utilizando a notação de combinação:
+
+$$
+P(S_j) = \frac{1}{\binom{N}{n}}
+$$
+
+Onde:
+
+$$
+\binom{N}{n} = \frac{N!}{n!(N-n)!}
+$$
+
+Isso representa o número total de amostras possíveis de tamanho $n$ extraídas de uma população de tamanho $N$. Portanto, **todas as amostras têm a mesma probabilidade de serem selecionadas**.
+
+---
+
+#### Exemplo 1: Mega-Sena
+
+Suponha $N = 60$ (números da Mega-Sena) e queremos selecionar uma amostra de tamanho $n = 6$.
+
+O total de possíveis combinações é:
+
+$$
+\binom{60}{6} = 50.063.860
+$$
+
+Logo, a **probabilidade de acertar uma combinação específica** (como no sorteio da Mega-Sena) é:
+
+$$
+P(\text{sua combinação}) = \frac{1}{50.063.860}
+$$
+
+---
+
+#### Exemplo 2: Peso
+
+Suponha que estamos interessados na variável **peso** $y$, e que temos uma população de tamanho $N = 60$. Se selecionarmos uma amostra de tamanho $n = 6$, podemos calcular a média da amostra $\bar{y}$ e compará-la com a média populacional $\bar{Y}$.
+
+O erro da estimativa (erro amostral) para a amostra $i$ é:
+
+$$
+\varepsilon_i = |\bar{y}_i - \bar{Y}|
+$$
+
+Esse valor nos indica o **desvio da média amostral em relação à média populacional**, ou seja, a **incerteza associada à estimativa** com base em uma única amostra.
+
+---
+
+#### Erro padrão
+
+O **erro padrão da média amostral** mede a variabilidade das médias das possíveis amostras em torno da média da população. Ele depende de:
+
+- A variância populacional $S^2$,
+- O tamanho da amostra $n$,
+- O tamanho da população $N$.
+
+Se a amostragem é **sem reposição**, o erro padrão da média amostral $\bar{y}$ é dado por:
+
+$$
+\text{Erro padrão} = \sqrt{ \frac{S^2}{n} \cdot \left(1 - \frac{n}{N} \right) }
+$$
+
+Se $N$ for muito grande em relação a $n$, o fator de correção $\left(1 - \frac{n}{N} \right)$ se aproxima de 1 e pode ser desprezado.
+
+---
+
+**Resumo**: A amostragem aleatória simples é a base para o estudo de inferência estatística. A partir dela, podemos construir estimadores, calcular erros e construir intervalos de confiança de maneira rigorosa.

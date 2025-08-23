@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lucas Magalhães Ast">
+
+<title>Regressão Linear: Simples e Múltipla – Portfólio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-96c94cebd92d62c19c23134a3362f02c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Portfólio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Início</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-acadêmico" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Acadêmico</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-acadêmico">    
+        <li>
+    <a class="dropdown-item" href="../../academico/projeto_amostragem/index.html">
+ <span class="dropdown-text">Amostragem</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../academico/projeto_regressao_linear/index.html">
+ <span class="dropdown-text">Regressão</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-profissional" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Profissional</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-profissional">    
+        <li>
+    <a class="dropdown-item" href="../../profissional/projeto_1/index.html">
+ <span class="dropdown-text">Projeto 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../profissional/projeto_2/index.html">
+ <span class="dropdown-text">Projeto 2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../academico/projeto_regressao_linear/regressao_linear.html">Regressão Linear: Simples e Múltipla</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../academico/projeto_regressao_linear/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Início</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../academico/projeto_regressao_linear/regressao_linear.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Regressão Linear: Simples e Múltipla</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#o-que-é-regressão-linear" id="toc-o-que-é-regressão-linear" class="nav-link active" data-scroll-target="#o-que-é-regressão-linear">O que é Regressão Linear?</a></li>
+  <li><a href="#regressão-linear-simples" id="toc-regressão-linear-simples" class="nav-link" data-scroll-target="#regressão-linear-simples">Regressão Linear Simples</a>
+  <ul class="collapse">
+  <li><a href="#definição" id="toc-definição" class="nav-link" data-scroll-target="#definição">Definição</a></li>
+  <li><a href="#fórmula" id="toc-fórmula" class="nav-link" data-scroll-target="#fórmula">Fórmula</a></li>
+  </ul></li>
+  <li><a href="#o-que-é-o-intercepto-beta_0" id="toc-o-que-é-o-intercepto-beta_0" class="nav-link" data-scroll-target="#o-que-é-o-intercepto-beta_0">O que é o Intercepto (<span class="math inline">\(\beta_0\)</span>)?</a></li>
+  <li><a href="#o-que-é-o-coeficiente-angular-beta_1" id="toc-o-que-é-o-coeficiente-angular-beta_1" class="nav-link" data-scroll-target="#o-que-é-o-coeficiente-angular-beta_1">O que é o Coeficiente Angular (<span class="math inline">\(\beta_1\)</span>)?</a></li>
+  <li><a href="#o-que-é-o-erro-varepsilon" id="toc-o-que-é-o-erro-varepsilon" class="nav-link" data-scroll-target="#o-que-é-o-erro-varepsilon">O que é o Erro (<span class="math inline">\(\varepsilon\)</span>)?</a></li>
+  <li><a href="#exemplo-de-regressão-linear-simples" id="toc-exemplo-de-regressão-linear-simples" class="nav-link" data-scroll-target="#exemplo-de-regressão-linear-simples">Exemplo de Regressão Linear Simples</a></li>
+  <li><a href="#cálculo-dos-coeficientes" id="toc-cálculo-dos-coeficientes" class="nav-link" data-scroll-target="#cálculo-dos-coeficientes">Cálculo dos Coeficientes</a>
+  <ul class="collapse">
+  <li><a href="#passos-do-mqo" id="toc-passos-do-mqo" class="nav-link" data-scroll-target="#passos-do-mqo">Passos do MQO</a></li>
+  <li><a href="#resultado" id="toc-resultado" class="nav-link" data-scroll-target="#resultado">Resultado:</a></li>
+  </ul></li>
+  <li><a href="#exemplo-prático-em-python-regressão-linear-simples" id="toc-exemplo-prático-em-python-regressão-linear-simples" class="nav-link" data-scroll-target="#exemplo-prático-em-python-regressão-linear-simples">Exemplo Prático em Python (Regressão Linear Simples)</a></li>
+  <li><a href="#regressão-linear-múltipla" id="toc-regressão-linear-múltipla" class="nav-link" data-scroll-target="#regressão-linear-múltipla">Regressão Linear Múltipla</a>
+  <ul class="collapse">
+  <li><a href="#definição-1" id="toc-definição-1" class="nav-link" data-scroll-target="#definição-1">Definição</a></li>
+  <li><a href="#fórmula-1" id="toc-fórmula-1" class="nav-link" data-scroll-target="#fórmula-1">Fórmula</a></li>
+  <li><a href="#exemplo" id="toc-exemplo" class="nav-link" data-scroll-target="#exemplo">Exemplo:</a></li>
+  <li><a href="#forma-matricial-do-mqo" id="toc-forma-matricial-do-mqo" class="nav-link" data-scroll-target="#forma-matricial-do-mqo">Forma matricial do MQO</a></li>
+  <li><a href="#suponha-os-seguintes-dados" id="toc-suponha-os-seguintes-dados" class="nav-link" data-scroll-target="#suponha-os-seguintes-dados">Suponha os seguintes dados:</a></li>
+  <li><a href="#montando-as-matrizes" id="toc-montando-as-matrizes" class="nav-link" data-scroll-target="#montando-as-matrizes">Montando as matrizes</a></li>
+  <li><a href="#aplicando-o-mqo" id="toc-aplicando-o-mqo" class="nav-link" data-scroll-target="#aplicando-o-mqo">Aplicando o MQO</a></li>
+  <li><a href="#resultado-1" id="toc-resultado-1" class="nav-link" data-scroll-target="#resultado-1">Resultado:</a></li>
+  <li><a href="#observação" id="toc-observação" class="nav-link" data-scroll-target="#observação">Observação:</a></li>
+  </ul></li>
+  <li><a href="#exemplo-prático-em-python-regressão-linear-múltipla" id="toc-exemplo-prático-em-python-regressão-linear-múltipla" class="nav-link" data-scroll-target="#exemplo-prático-em-python-regressão-linear-múltipla">Exemplo Prático em Python (Regressão Linear Múltipla)</a></li>
+  <li><a href="#exemplo-prático-com-gráfico-comparando-a-regressão-linear-simples-e-múltipla" id="toc-exemplo-prático-com-gráfico-comparando-a-regressão-linear-simples-e-múltipla" class="nav-link" data-scroll-target="#exemplo-prático-com-gráfico-comparando-a-regressão-linear-simples-e-múltipla">Exemplo prático com gráfico comparando a regressão linear simples e múltipla</a></li>
+  <li><a href="#interpretação-e-limitações-preditivas-da-regressão-linear" id="toc-interpretação-e-limitações-preditivas-da-regressão-linear" class="nav-link" data-scroll-target="#interpretação-e-limitações-preditivas-da-regressão-linear">Interpretação e Limitações Preditivas da Regressão Linear</a>
+  <ul class="collapse">
+  <li><a href="#o-que-a-regressão-linear-faz-bem" id="toc-o-que-a-regressão-linear-faz-bem" class="nav-link" data-scroll-target="#o-que-a-regressão-linear-faz-bem">O que a Regressão Linear faz bem?</a></li>
+  <li><a href="#como-modelo-preditivo" id="toc-como-modelo-preditivo" class="nav-link" data-scroll-target="#como-modelo-preditivo">Como modelo preditivo?</a></li>
+  <li><a href="#forma-correta-de-interpretar" id="toc-forma-correta-de-interpretar" class="nav-link" data-scroll-target="#forma-correta-de-interpretar">Forma correta de interpretar</a></li>
+  <li><a href="#quando-usar-regressão-linear" id="toc-quando-usar-regressão-linear" class="nav-link" data-scroll-target="#quando-usar-regressão-linear">Quando usar regressão linear?</a></li>
+  <li><a href="#modelos-alternativos-para-previsão-robusta" id="toc-modelos-alternativos-para-previsão-robusta" class="nav-link" data-scroll-target="#modelos-alternativos-para-previsão-robusta">Modelos alternativos para previsão robusta</a></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">Conclusão</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Regressão Linear: Simples e Múltipla</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lucas Magalhães Ast </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="o-que-é-regressão-linear" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-é-regressão-linear">O que é Regressão Linear?</h2>
+<p>A regressão linear é uma técnica estatística usada para modelar a relação entre variáveis. O objetivo é explicar uma variável dependente <span class="math inline">\(y\)</span> com base em uma ou mais variáveis independentes <span class="math inline">\(x\)</span>.</p>
+<hr>
+</section>
+<section id="regressão-linear-simples" class="level2">
+<h2 class="anchored" data-anchor-id="regressão-linear-simples">Regressão Linear Simples</h2>
+<section id="definição" class="level3">
+<h3 class="anchored" data-anchor-id="definição">Definição</h3>
+<p>Modela a relação entre duas variáveis:<br>
+- Uma variável dependente <span class="math inline">\(y\)</span><br>
+- Uma variável independente <span class="math inline">\(x\)</span></p>
+<hr>
+</section>
+<section id="fórmula" class="level3">
+<h3 class="anchored" data-anchor-id="fórmula">Fórmula</h3>
+<p><span class="math display">\[
+\hat{y} = \beta_0 + \beta_1 x + \varepsilon
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat{y}\)</span>: valor previsto<br>
+</li>
+<li><span class="math inline">\(\beta_0\)</span>: intercepto<br>
+</li>
+<li><span class="math inline">\(\beta_1\)</span>: coeficiente angular<br>
+</li>
+<li><span class="math inline">\(x\)</span>: variável explicativa</li>
+<li><span class="math inline">\(\varepsilon\)</span>: erro</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="o-que-é-o-intercepto-beta_0" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-é-o-intercepto-beta_0">O que é o Intercepto (<span class="math inline">\(\beta_0\)</span>)?</h2>
+<p>O intercepto (também chamado de coeficiente linear, <span class="math inline">\(\beta_0\)</span> ou <span class="math inline">\(a\)</span> em alguns livros) é o valor de <span class="math inline">\(y\)</span> quando <span class="math inline">\(x=0\)</span>, ou onde a reta cruza o eixo <span class="math inline">\(y\)</span>.</p>
+<p>Ele dá a “altura de partida” da reta. Em alguns contextos, o intercepto tem interpretação prática (ex: salário inicial quando anos de experiência = 0).</p>
+</section>
+<section id="o-que-é-o-coeficiente-angular-beta_1" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-é-o-coeficiente-angular-beta_1">O que é o Coeficiente Angular (<span class="math inline">\(\beta_1\)</span>)?</h2>
+<p>É o número que indica <strong>quanto a variável <span class="math inline">\(y\)</span> varia</strong> quando <span class="math inline">\(x\)</span> aumenta em uma unidade.</p>
+<ul>
+<li>Se <span class="math inline">\(\beta_1 = 3\)</span>, cada aumento de 1 unidade em <span class="math inline">\(x\)</span> causa aumento de 3 unidades em <span class="math inline">\(y\)</span>.</li>
+<li>Se <span class="math inline">\(\beta_1 &lt; 0\)</span>, a relação é decrescente.</li>
+</ul>
+</section>
+<section id="o-que-é-o-erro-varepsilon" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-é-o-erro-varepsilon">O que é o Erro (<span class="math inline">\(\varepsilon\)</span>)?</h2>
+<p>Representa a diferença entre o valor observado da variável dependente <span class="math inline">\(y\)</span> e o valor previsto pelo modelo <span class="math inline">\(\hat{y}\)</span></p>
+<p><span class="math display">\[
+\varepsilon = y - \hat{y}
+\]</span></p>
+<p>Ele representa tudo que influência <span class="math inline">\(y\)</span> e que não é explicado pela variável explicativa <span class="math inline">\(x\)</span> incluída no modelo.</p>
+<p>Em outras palavras:</p>
+<ul>
+<li>O modelo tenta explicar <span class="math inline">\(y\)</span> com base em <span class="math inline">\(x\)</span> através da relação linear <span class="math inline">\(\hat{y} = \beta_0 + \beta_1 x\)</span>.</li>
+<li>O erro é o que sobra da parcela que <span class="math inline">\(y\)</span> que não pode ser prevista pelo modelo.</li>
+<li>Inclui fatores aleatórias, ruído de medição, variáveis omitidas ou influências externas não capturadas pelo modelo.</li>
+</ul>
+<p>Se os dados seguem exatamente a reta do modelo, o erro será zero. Em dados reais, os erros quase sempre são diferentes de zero, e a análise deles ajuda a avaliar o quão bom é o modelo.</p>
+<p>O exemplo a seguir segue exatamente a reta do modelo e por isso o erro acaba sendo zero.</p>
+<hr>
+</section>
+<section id="exemplo-de-regressão-linear-simples" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-de-regressão-linear-simples">Exemplo de Regressão Linear Simples</h2>
+<p>Suponha a função:</p>
+<p><span class="math display">\[
+y = 2 + 3x
+\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Intercepto <span class="math inline">\(\beta_0 = 2\)</span></p></li>
+<li><p>Inclinação <span class="math inline">\(\beta_1 = 3\)</span></p></li>
+</ul>
+<hr>
+</section>
+<section id="cálculo-dos-coeficientes" class="level2">
+<h2 class="anchored" data-anchor-id="cálculo-dos-coeficientes">Cálculo dos Coeficientes</h2>
+<p>O método dos mínimos quadrados calcula os coeficientes que minimizam a soma dos quadrados dos erros.</p>
+<p>Fórmula do coeficiente angular: <span class="math display">\[
+\beta_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+\]</span></p>
+<p>Fórmula do intercepto: <span class="math display">\[
+\beta_0 = \bar{y} - \beta_1 \bar{x}
+\]</span></p>
+<section id="passos-do-mqo" class="level3">
+<h3 class="anchored" data-anchor-id="passos-do-mqo">Passos do MQO</h3>
+<p>Queremos encontrar os coeficientes <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> que melhor ajustam o modelo:</p>
+<p><span class="math display">\[
+\hat{y} = \beta_0 + \beta_1 x
+\]</span></p>
+<section id="calcular-as-médias" class="level4">
+<h4 class="anchored" data-anchor-id="calcular-as-médias">Calcular as médias</h4>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{x} &amp;= \frac{0 + 1 + 2}{3} = 1 \\
+\bar{y} &amp;= \frac{2 + 5 + 8}{3} = 5
+\end{aligned}
+\]</span></p>
+</section>
+<section id="calcular-o-coeficiente-angular-beta_1" class="level4">
+<h4 class="anchored" data-anchor-id="calcular-o-coeficiente-angular-beta_1">Calcular o coeficiente angular (<span class="math inline">\(\beta_1\)</span>)</h4>
+<p><span class="math display">\[
+\beta_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+\]</span></p>
+<p>Montando a tabela:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 33%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x_i\)</span></th>
+<th><span class="math inline">\(y_i\)</span></th>
+<th><span class="math inline">\(x_i - \bar{x}\)</span></th>
+<th><span class="math inline">\(y_i - \bar{y}\)</span></th>
+<th><span class="math inline">\((x_i - \bar{x})(y_i - \bar{y})\)</span></th>
+<th><span class="math inline">\((x_i - \bar{x})^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>2</td>
+<td>-1</td>
+<td>-3</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>8</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Somando:</p>
+<p><span class="math display">\[
+\beta_1 = \frac{3 + 0 + 3}{1 + 0 + 1} = \frac{6}{2} = 3
+\]</span></p>
+</section>
+<section id="calcular-o-intercepto-beta_0" class="level4">
+<h4 class="anchored" data-anchor-id="calcular-o-intercepto-beta_0">Calcular o intercepto (<span class="math inline">\(\beta_0\)</span>)</h4>
+<p><span class="math display">\[
+\beta_0 = \bar{y} - \beta_1 \bar{x} = 5 - 3 \cdot 1 = 2
+\]</span></p>
+<hr>
+</section>
+</section>
+<section id="resultado" class="level3">
+<h3 class="anchored" data-anchor-id="resultado">Resultado:</h3>
+<p>A equação estimada é:</p>
+<p><span class="math display">\[
+\hat{y} = 2 + 3x
+\]</span></p>
+<ul>
+<li>Intercepto <span class="math inline">\(\beta_0 = 2\)</span></li>
+<li>Inclinação <span class="math inline">\(\beta_1 = 3\)</span></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="exemplo-prático-em-python-regressão-linear-simples" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-prático-em-python-regressão-linear-simples">Exemplo Prático em Python (Regressão Linear Simples)</h2>
+<div id="d605cf3b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dados simulados</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando e ajustando o modelo</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> LinearRegression()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>modelo.fit(x, y)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Previsões</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> modelo.predict(x)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'Dados reais'</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y_pred, color<span class="op">=</span><span class="st">'red'</span>, label<span class="op">=</span><span class="st">'Reta de regressão'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Adicionando os erros (resíduos) como linhas verticais</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xi, yi, ypi <span class="kw">in</span> <span class="bu">zip</span>(x, y, y_pred):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    plt.vlines(xi, ypi, yi, colors<span class="op">=</span><span class="st">'green'</span>, linestyles<span class="op">=</span><span class="st">'dashed'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuração do gráfico</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Regressão Linear com Erros (Resíduos)"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"y"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_files/figure-html/cell-2-output-1.png" width="663" height="524" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="regressão-linear-múltipla" class="level2">
+<h2 class="anchored" data-anchor-id="regressão-linear-múltipla">Regressão Linear Múltipla</h2>
+<section id="definição-1" class="level3">
+<h3 class="anchored" data-anchor-id="definição-1">Definição</h3>
+<p>Estende a regressão simples para incluir mais de uma variável explicativa.</p>
+</section>
+<section id="fórmula-1" class="level3">
+<h3 class="anchored" data-anchor-id="fórmula-1">Fórmula</h3>
+<p><span class="math display">\[
+\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n
+\]</span></p>
+<ul>
+<li>Cada <span class="math inline">\(\beta_i\)</span> representa o efeito isolado de <span class="math inline">\(x_i\)</span> sobre <span class="math inline">\(y\)</span>, mantendo os outros fixos.</li>
+</ul>
+</section>
+<section id="exemplo" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo">Exemplo:</h3>
+<p>Previsão do preço de um carro com base em: - <span class="math inline">\(x_1\)</span>: quilometragem - <span class="math inline">\(x_2\)</span>: ano - <span class="math inline">\(x_3\)</span>: tipo de combustível</p>
+<p><span class="math display">\[
+\hat{y} = 50000 - 0.05x_1 + 300x_2 + 1000x_3
+\]</span></p>
+</section>
+<section id="forma-matricial-do-mqo" class="level3">
+<h3 class="anchored" data-anchor-id="forma-matricial-do-mqo">Forma matricial do MQO</h3>
+<p>Para múltiplas variáveis, usamos a fórmula matricial:</p>
+<p><span class="math display">\[
+\hat{\beta} = (X^\top X)^{-1} X^\top y
+\]</span></p>
+<p>Onde:</p>
+<ul>
+<li><span class="math inline">\(X\)</span>: matriz de variáveis (com uma coluna de 1s para o intercepto)</li>
+<li><span class="math inline">\(y\)</span>: vetor de respostas</li>
+<li><span class="math inline">\(\hat{\beta}\)</span>: vetor de coeficientes <span class="math inline">\((\beta_0, \beta_1, \beta_2, \beta_3)\)</span></li>
+</ul>
+<hr>
+</section>
+<section id="suponha-os-seguintes-dados" class="level3">
+<h3 class="anchored" data-anchor-id="suponha-os-seguintes-dados">Suponha os seguintes dados:</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x_1\)</span> (km)</th>
+<th><span class="math inline">\(x_2\)</span> (ano)</th>
+<th><span class="math inline">\(x_3\)</span> (comb.)</th>
+<th><span class="math inline">\(y\)</span> (preço)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>20000</td>
+<td>2020</td>
+<td>0</td>
+<td>56000</td>
+</tr>
+<tr class="even">
+<td>40000</td>
+<td>2019</td>
+<td>1</td>
+<td>55200</td>
+</tr>
+<tr class="odd">
+<td>10000</td>
+<td>2021</td>
+<td>1</td>
+<td>59000</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="montando-as-matrizes" class="level3">
+<h3 class="anchored" data-anchor-id="montando-as-matrizes">Montando as matrizes</h3>
+<p><span class="math display">\[
+X =
+\begin{bmatrix}
+1 &amp; 20000 &amp; 2020 &amp; 0 \\
+1 &amp; 40000 &amp; 2019 &amp; 1 \\
+1 &amp; 10000 &amp; 2021 &amp; 1 \\
+\end{bmatrix},
+\quad
+y =
+\begin{bmatrix}
+56000 \\
+55200 \\
+59000 \\
+\end{bmatrix}
+\]</span></p>
+<hr>
+</section>
+<section id="aplicando-o-mqo" class="level3">
+<h3 class="anchored" data-anchor-id="aplicando-o-mqo">Aplicando o MQO</h3>
+<p>Usamos a fórmula:</p>
+<p><span class="math display">\[
+\hat{\beta} = (X^\top X)^{-1} X^\top y
+\]</span></p>
+<p>O cálculo envolve:</p>
+<ol type="1">
+<li>Multiplicar <span class="math inline">\(X^\top X\)</span></li>
+<li>Inverter <span class="math inline">\((X^\top X)\)</span></li>
+<li>Multiplicar pelo vetor <span class="math inline">\(X^\top y\)</span></li>
+</ol>
+<p>Esse processo gera os coeficientes estimados:</p>
+<p><span class="math display">\[
+\hat{\beta} =
+\begin{bmatrix}
+50000 \\
+-0.05 \\
+300 \\
+1000 \\
+\end{bmatrix}
+\]</span></p>
+<hr>
+</section>
+<section id="resultado-1" class="level3">
+<h3 class="anchored" data-anchor-id="resultado-1">Resultado:</h3>
+<p>A equação estimada da regressão múltipla é:</p>
+<p><span class="math display">\[
+\hat{y} = 50000 - 0.05x_1 + 300x_2 + 1000x_3
+\]</span></p>
+<hr>
+</section>
+<section id="observação" class="level3">
+<h3 class="anchored" data-anchor-id="observação">Observação:</h3>
+<p>Esse modelo diz, por exemplo, que: - Cada quilômetro rodado reduz o valor do carro em R$ 0,05 - Cada ano de fabricação a mais aumenta o valor em R$ 300 - Veículos a álcool valem R$ 1.000 a mais, em média, que os a gasolina (assumindo <span class="math inline">\(x_3 = 1\)</span>)</p>
+<hr>
+</section>
+</section>
+<section id="exemplo-prático-em-python-regressão-linear-múltipla" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-prático-em-python-regressão-linear-múltipla">Exemplo Prático em Python (Regressão Linear Múltipla)</h2>
+<div id="c2cf89c7" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Variáveis explicativas (2 variáveis: x1 e x2)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>],</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">2</span>, <span class="dv">1</span>],</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">3</span>, <span class="dv">3</span>],</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">4</span>, <span class="dv">5</span>],</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">5</span>, <span class="dv">4</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Variável resposta</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">10</span>])</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustando o modelo</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> LinearRegression()</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>modelo.fit(X, y)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultados</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>intercepto <span class="op">=</span> modelo.intercept_</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>coeficientes <span class="op">=</span> modelo.coef_</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> modelo.predict(X)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando o erro (resíduo)</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>erro <span class="op">=</span> y <span class="op">-</span> y_pred  <span class="co"># ε_i = y_i - ŷ_i</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Impressões</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Intercepto (b0):"</span>, intercepto)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Coeficientes (b1, b2):"</span>, coeficientes)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Valores previstos (ŷ):"</span>, y_pred)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Erro (ε = y - ŷ):"</span>, erro)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Soma dos erros (≈0):"</span>, np.<span class="bu">sum</span>(erro))</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Média dos erros (≈0):"</span>, np.mean(erro))</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico dos resíduos</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>plt.scatter(<span class="bu">range</span>(<span class="bu">len</span>(y)), y, label<span class="op">=</span><span class="st">'Valores observados'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>plt.scatter(<span class="bu">range</span>(<span class="bu">len</span>(y_pred)), y_pred, label<span class="op">=</span><span class="st">'Valores previstos'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(y)):</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    plt.vlines(i, y_pred[i], y[i], color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)  <span class="co"># linhas verticais = erros</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span>np.mean(y), color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'Média de y'</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Observação'</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Regressão Linear Múltipla - Observado vs Previsto e Erros'</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Intercepto (b0): 3.200000000000001
+Coeficientes (b1, b2): [0.83333333 0.83333333]
+Valores previstos (ŷ): [ 5.7  5.7  8.2 10.7 10.7]
+Erro (ε = y - ŷ): [-0.7  0.3  0.8  0.3 -0.7]
+Soma dos erros (≈0): 1.7763568394002505e-15
+Média dos erros (≈0): 3.552713678800501e-16</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_files/figure-html/cell-3-output-2.png" width="659" height="450" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exemplo-prático-com-gráfico-comparando-a-regressão-linear-simples-e-múltipla" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-prático-com-gráfico-comparando-a-regressão-linear-simples-e-múltipla">Exemplo prático com gráfico comparando a regressão linear simples e múltipla</h2>
+<div id="ccc5fdfd" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== Regressão Linear Simples =====</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Dados simulados</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>x_s <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>y_s_true <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> x_s <span class="op">+</span> <span class="dv">5</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>y_s <span class="op">=</span> y_s_true <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">3</span>, size<span class="op">=</span><span class="bu">len</span>(x_s))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste (OLS)</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>coef_s <span class="op">=</span> np.polyfit(x_s, y_s, <span class="dv">1</span>)           <span class="co"># [b1, b0]</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>y_s_hat <span class="op">=</span> np.polyval(coef_s, x_s)           <span class="co"># previsões na reta ajustada</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== Regressão Linear Múltipla (2 variáveis) =====</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Malha de pontos para (x1, x2)</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>x1g, x2g <span class="op">=</span> np.meshgrid(x1, x2)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Plano verdadeiro + ruído</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>y_m_true <span class="op">=</span> <span class="fl">1.5</span> <span class="op">*</span> x1g <span class="op">+</span> <span class="fl">2.0</span> <span class="op">*</span> x2g <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>y_m <span class="op">=</span> y_m_true <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">3</span>, size<span class="op">=</span>y_m_true.shape)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste (OLS) com scikit-learn</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>X_m <span class="op">=</span> np.column_stack([x1g.ravel(), x2g.ravel()])</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> LinearRegression().fit(X_m, y_m.ravel())</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>b0, b1, b2 <span class="op">=</span> reg.intercept_, reg.coef_[<span class="dv">0</span>], reg.coef_[<span class="dv">1</span>]</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>y_m_hat <span class="op">=</span> (b0 <span class="op">+</span> b1 <span class="op">*</span> x1g <span class="op">+</span> b2 <span class="op">*</span> x2g)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># ===== Plot =====</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) Simples: pontos, reta e erros (distância vertical)</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>ax1.scatter(x_s, y_s, label<span class="op">=</span><span class="st">"Observado"</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>ax1.plot(x_s, y_s_hat, label<span class="op">=</span><span class="st">"Reta ajustada"</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xi, yi, yhi <span class="kw">in</span> <span class="bu">zip</span>(x_s, y_s, y_s_hat):</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    ax1.plot([xi, xi], [yi, yhi], linestyle<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)  <span class="co"># erro vertical</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">"Regressão Linear Simples</span><span class="ch">\n</span><span class="st">Erro = distância vertical até a reta"</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">"x"</span>)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">"y"</span>)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>ax1.grid(<span class="va">True</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) Múltipla: pontos, plano e erros (distância vertical)</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, projection<span class="op">=</span><span class="st">"3d"</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>ax2.scatter(x1g, x2g, y_m, label<span class="op">=</span><span class="st">"Observado"</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>ax2.plot_surface(x1g, x2g, y_m_hat, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xi, xj, yi, yhi <span class="kw">in</span> <span class="bu">zip</span>(x1g.ravel(), x2g.ravel(), y_m.ravel(), y_m_hat.ravel()):</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    ax2.plot([xi, xi], [xj, xj], [yi, yhi], linestyle<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)  <span class="co"># erro vertical</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">"Regressão Linear Múltipla</span><span class="ch">\n</span><span class="st">Erro = distância vertical até o plano"</span>)</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">"x1"</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"x2"</span>)</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>ax2.set_zlabel(<span class="st">"y"</span>)</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>ax2.legend()</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_files/figure-html/cell-4-output-1.png" width="1265" height="567" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="interpretação-e-limitações-preditivas-da-regressão-linear" class="level2">
+<h2 class="anchored" data-anchor-id="interpretação-e-limitações-preditivas-da-regressão-linear">Interpretação e Limitações Preditivas da Regressão Linear</h2>
+<p>A regressão linear é frequentemente usada como modelo preditivo, mas é importante entender suas reais capacidades e limitações.</p>
+<section id="o-que-a-regressão-linear-faz-bem" class="level3">
+<h3 class="anchored" data-anchor-id="o-que-a-regressão-linear-faz-bem">O que a Regressão Linear faz bem?</h3>
+<p>A regressão linear drescreve a tendência média de uma variável resposta <span class="math inline">\(y\)</span> em função de uma ou mais variáveis explicativas <span class="math inline">\(x\)</span>.</p>
+<p>Ela é excelente para:</p>
+<ul>
+<li>Modelar relações lineares simples</li>
+<li>Observar comportamentos médios</li>
+<li>Interpretar coeficientes (quanto uma variável impacta a outra, em média)</li>
+<li>Avaliação descritiva e inferencial</li>
+</ul>
+<hr>
+</section>
+<section id="como-modelo-preditivo" class="level3">
+<h3 class="anchored" data-anchor-id="como-modelo-preditivo">Como modelo preditivo?</h3>
+<p>A regressão linear não é robusta como modelo preditivo em situações reais com dados complexos. Ela assume uma série de condições ideais:</p>
+<ol type="1">
+<li>Linearidade da relação entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>:<br>
+Se a relação real entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span> não for linear, o modelo ajusta uma reta/plano onde a relação é curva ou mais complexa, então o “erro” que sobra (resíduo) não é mais puro ruído, mas carrega padrão que deveria estar na parte explicada.<br>
+</li>
+<li>Homocedasticidade (variância constante dos resíduos):<br>
+Quando a variância do erro muda com <span class="math inline">\(x\)</span>, as estimativas de coeficientes ainda podem ser não-viesadas, mas as previsões terão incertezas mal estimadas, aumentando a chance de erros grandes.<br>
+</li>
+<li>Normalidade dos erros:<br>
+Essencial para validade de testes e intervalos de confiança. Se violada, a incerteza da previsão é mal quantificada, afetando a confiabilidade das predições.<br>
+</li>
+<li>Ausência de multicolinearidade (na regressão múltipla):<br>
+Quando variáveis explicativas estão muito correlacionadas, o modelo tem dificuldade em distinguir seus efeitos individuais, com coeficientes instáveis, pequenas mudanças nos dados geram grandes mudanças nas previsões.</li>
+</ol>
+<p>Quando essas condições não são atendidas, a capacidade preditiva cai drasticamente.</p>
+<hr>
+</section>
+<section id="forma-correta-de-interpretar" class="level3">
+<h3 class="anchored" data-anchor-id="forma-correta-de-interpretar">Forma correta de interpretar</h3>
+<ul>
+<li><p>Regressão linear é um método estatístico que estima a relação média entre uma variável resposta e uma ou mais variáveis explicativas.</p></li>
+<li><p>Embora útil para descrever tendências, possui limitações como modelo preditivo em cenários complexos ou não lineares.</p></li>
+<li><p>Regressão linear é útil para descrever a tendência média de como <span class="math inline">\(y\)</span> varia em função de <span class="math inline">\(x\)</span> (ou de vários <span class="math inline">\(x\)</span>, no caso múltiplo).</p></li>
+</ul>
+<hr>
+</section>
+<section id="quando-usar-regressão-linear" class="level3">
+<h3 class="anchored" data-anchor-id="quando-usar-regressão-linear">Quando usar regressão linear?</h3>
+<p>Use regressão linear quando seu objetivo for:</p>
+<ul>
+<li>Entender uma relação média entre variáveis</li>
+<li>Testar hipóteses estatísticas</li>
+<li>Explicar variações médias em <span class="math inline">\(y\)</span></li>
+<li>Prever dentro de um intervalo bem comportado, onde os dados sigam aproximadamente uma tendência linear</li>
+</ul>
+<hr>
+</section>
+<section id="modelos-alternativos-para-previsão-robusta" class="level3">
+<h3 class="anchored" data-anchor-id="modelos-alternativos-para-previsão-robusta">Modelos alternativos para previsão robusta</h3>
+<p>Se seu objetivo é previsão com alta acurácia, considere modelos mais sofisticados, como:</p>
+<ul>
+<li>Regressão polinomial</li>
+<li>Árvores de decisão e Random Forest</li>
+<li>Regressão Lasso/Ridge</li>
+<li>Modelos de séries temporais (ARIMA, Prophet)</li>
+<li>Redes neurais (deep learning)</li>
+</ul>
+<hr>
+</section>
+<section id="conclusão" class="level3">
+<h3 class="anchored" data-anchor-id="conclusão">Conclusão</h3>
+<p>A regressão linear é uma excelente ferramenta para representar tendências e compreender relações entre variáveis, mas deve ser usada com cautela como modelo preditivo em contextos reais complexos.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lucas-magalhaes\.quarto\.pub\/portfolio");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

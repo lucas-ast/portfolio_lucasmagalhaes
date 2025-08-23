@@ -1,0 +1,22 @@
+---
+title: "Disciplina: Técnicas de Amostragem - CE305"
+format: html
+---
+
+Este projeto contém as anotações desenvolvidas durante o estudo da disciplina técnicas de amostragem ministradas pelo Prof. Ary Elias Sabbag Júnior na Universidade Federal do Paraná.
+
+## Relatórios Semanais
+
+- [Semana 1 — Introdução à Disciplina de Amostragem](semana1.qmd)
+- [Semana 2 — Definições, Estimadores e Introdução ao Teorema 1 (Média Amostral)](semana2.qmd)
+- [Semana 3 — Teorema 2 e Introdução ao Erro Padrão da Média](semana3.qmd)
+- [Semana 4 — Teorema 3, Aplicação dos Teoremas 2 e 3 e Introdução ao Intervalo de Confiança](semana4.qmd)
+- [Semana 5 — Tamanho da Amostra com Base no Erro e Estimação de uma Proporção](semana5.qmd)
+- [Semana 6 — Cálculo do Tamanho de Amostra para uma Proporção e Exemplo](semana6.qmd)
+- [Semana 7 — Estimador de uma Razão e Estimador de uma Proporção em Amostragem por Clusters](semana7.qmd)
+- [Semana 8 — Amostragem Aleatória Estratificada](semana8.qmd)
+- [Semana 9 — Alocação Ótima, Controle de Custo, Controle de Precisão](semana9.qmd)
+
+---
+
+[⬅ Voltar ao Portfólio](../../index.qmd)

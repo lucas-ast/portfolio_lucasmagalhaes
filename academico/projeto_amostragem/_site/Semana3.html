@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lucas Magalhães Ast">
+
+<title>Semana 3 – Amostragem CE302</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-96c94cebd92d62c19c23134a3362f02c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Amostragem CE302</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Início</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Semana1.html"> 
+<span class="menu-text">Semana 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Semana2.html"> 
+<span class="menu-text">Semana 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./Semana3.html" aria-current="page"> 
+<span class="menu-text">Semana 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Semana4.html"> 
+<span class="menu-text">Semana 4</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Semana5.html"> 
+<span class="menu-text">Semana 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Semana6.html"> 
+<span class="menu-text">Semana 6</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Semana7.html"> 
+<span class="menu-text">Semana 7</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Semana8.html"> 
+<span class="menu-text">Semana 8</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Semana9.html"> 
+<span class="menu-text">Semana 9</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#semana-3" id="toc-semana-3" class="nav-link active" data-scroll-target="#semana-3">Semana 3</a></li>
+  <li><a href="#aula-01-valor-esperado-de-estatísticas-amostrais" id="toc-aula-01-valor-esperado-de-estatísticas-amostrais" class="nav-link" data-scroll-target="#aula-01-valor-esperado-de-estatísticas-amostrais">Aula 01: Valor Esperado de Estatísticas Amostrais</a>
+  <ul class="collapse">
+  <li><a href="#esperança-da-média-amostral" id="toc-esperança-da-média-amostral" class="nav-link" data-scroll-target="#esperança-da-média-amostral">1. Esperança da Média Amostral</a></li>
+  <li><a href="#esperança-da-soma-dos-valores-amostrais" id="toc-esperança-da-soma-dos-valores-amostrais" class="nav-link" data-scroll-target="#esperança-da-soma-dos-valores-amostrais">2. Esperança da Soma dos Valores Amostrais</a></li>
+  <li><a href="#esperança-da-soma-dos-quadrados" id="toc-esperança-da-soma-dos-quadrados" class="nav-link" data-scroll-target="#esperança-da-soma-dos-quadrados">3. Esperança da Soma dos Quadrados</a></li>
+  <li><a href="#resumo" id="toc-resumo" class="nav-link" data-scroll-target="#resumo">Resumo</a></li>
+  <li><a href="#cálculo-da-variância-das-observações-na-população" id="toc-cálculo-da-variância-das-observações-na-população" class="nav-link" data-scroll-target="#cálculo-da-variância-das-observações-na-população">Cálculo da Variância das Observações na População</a></li>
+  <li><a href="#observação-visual-imagem" id="toc-observação-visual-imagem" class="nav-link" data-scroll-target="#observação-visual-imagem">Observação visual (imagem)</a></li>
+  <li><a href="#resumo-1" id="toc-resumo-1" class="nav-link" data-scroll-target="#resumo-1">Resumo</a></li>
+  </ul></li>
+  <li><a href="#teorema-2-variância-da-média-amostral" id="toc-teorema-2-variância-da-média-amostral" class="nav-link" data-scroll-target="#teorema-2-variância-da-média-amostral">Teorema 2 — Variância da Média Amostral</a>
+  <ul class="collapse">
+  <li><a href="#demonstração" id="toc-demonstração" class="nav-link" data-scroll-target="#demonstração">Demonstração</a></li>
+  <li><a href="#observações-algébricas" id="toc-observações-algébricas" class="nav-link" data-scroll-target="#observações-algébricas">Observações Algébricas</a></li>
+  <li><a href="#explicação-intuitiva" id="toc-explicação-intuitiva" class="nav-link" data-scroll-target="#explicação-intuitiva">Explicação Intuitiva</a></li>
+  <li><a href="#resumo-da-prova-do-teorema-2" id="toc-resumo-da-prova-do-teorema-2" class="nav-link" data-scroll-target="#resumo-da-prova-do-teorema-2">Resumo da Prova do Teorema 2</a></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">Conclusão</a></li>
+  <li><a href="#observação-final" id="toc-observação-final" class="nav-link" data-scroll-target="#observação-final">Observação Final</a></li>
+  </ul></li>
+  <li><a href="#aula-02---introdução-ao-erro-padrão-da-média-desvio-padrão-da-média" id="toc-aula-02---introdução-ao-erro-padrão-da-média-desvio-padrão-da-média" class="nav-link" data-scroll-target="#aula-02---introdução-ao-erro-padrão-da-média-desvio-padrão-da-média">Aula 02 - Introdução ao Erro Padrão da Média (Desvio Padrão da Média)</a>
+  <ul class="collapse">
+  <li><a href="#teorema-1" id="toc-teorema-1" class="nav-link" data-scroll-target="#teorema-1">Teorema 1</a></li>
+  <li><a href="#teorema-2" id="toc-teorema-2" class="nav-link" data-scroll-target="#teorema-2">Teorema 2</a></li>
+  <li><a href="#erro-padrão-da-média-amostral" id="toc-erro-padrão-da-média-amostral" class="nav-link" data-scroll-target="#erro-padrão-da-média-amostral">Erro Padrão da Média Amostral</a></li>
+  <li><a href="#interpretação-intuitiva" id="toc-interpretação-intuitiva" class="nav-link" data-scroll-target="#interpretação-intuitiva">Interpretação Intuitiva</a></li>
+  <li><a href="#propriedade-importante-soma-dos-desvios" id="toc-propriedade-importante-soma-dos-desvios" class="nav-link" data-scroll-target="#propriedade-importante-soma-dos-desvios">Propriedade Importante: Soma dos Desvios</a></li>
+  <li><a href="#caso-especial-censo" id="toc-caso-especial-censo" class="nav-link" data-scroll-target="#caso-especial-censo">Caso Especial: Censo</a></li>
+  <li><a href="#fórmula-da-variância-populacional" id="toc-fórmula-da-variância-populacional" class="nav-link" data-scroll-target="#fórmula-da-variância-populacional">Fórmula da Variância Populacional</a></li>
+  <li><a href="#conclusão-1" id="toc-conclusão-1" class="nav-link" data-scroll-target="#conclusão-1">Conclusão</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Semana 3</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lucas Magalhães Ast </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="semana-3" class="level2">
+<h2 class="anchored" data-anchor-id="semana-3">Semana 3</h2>
+</section>
+<section id="aula-01-valor-esperado-de-estatísticas-amostrais" class="level2">
+<h2 class="anchored" data-anchor-id="aula-01-valor-esperado-de-estatísticas-amostrais"><a href="https://youtu.be/ilBsDzzUV1g?si=xMsTpvC1Nk_7ZB2c">Aula 01: Valor Esperado de Estatísticas Amostrais</a></h2>
+<p>Nesta aula, estudamos como calcular o valor esperado (ou esperança matemática) de algumas estatísticas comuns obtidas a partir de amostras aleatórias simples (AAS). O objetivo é demonstrar que esses estimadores são <strong>não viesados</strong>, ou seja, sua esperança é igual ao parâmetro populacional.</p>
+<hr>
+<section id="esperança-da-média-amostral" class="level3">
+<h3 class="anchored" data-anchor-id="esperança-da-média-amostral">1. Esperança da Média Amostral</h3>
+<p>Queremos calcular a esperança da média amostral <span class="math inline">\(\bar{y}\)</span>:</p>
+<p><span class="math display">\[
+E\left[\bar{y}\right] = E\left[ \frac{1}{n} \sum_{i=1}^{n} y_i \right]
+\]</span></p>
+<p>Como estamos usando amostragem aleatória simples, todos os elementos têm a mesma chance de serem selecionados. Logo, temos:</p>
+<p><span class="math display">\[
+E\left[\bar{y}\right] = \frac{1}{N} \sum_{i=1}^{N} y_i = \bar{Y}
+\]</span></p>
+<p><strong>Conclusão</strong>: A média amostral <span class="math inline">\(\bar{y}\)</span> é um <strong>estimador não viesado</strong> da média populacional <span class="math inline">\(\bar{Y}\)</span>.</p>
+<hr>
+</section>
+<section id="esperança-da-soma-dos-valores-amostrais" class="level3">
+<h3 class="anchored" data-anchor-id="esperança-da-soma-dos-valores-amostrais">2. Esperança da Soma dos Valores Amostrais</h3>
+<p>Queremos agora a esperança da <strong>soma dos elementos</strong> da amostra:</p>
+<p><span class="math display">\[
+E\left[\sum_{i=1}^{n} y_i\right] = \frac{n}{N} \left( \sum_{i=1}^{N} y_i \right)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(n\)</span>: número de parcelas da soma na amostra<br>
+</li>
+<li><span class="math inline">\(N\)</span>: número de parcelas da soma na população</li>
+</ul>
+<p><strong>Interpretação</strong>:<br>
+A soma esperada da amostra é proporcional à soma da população, com fator de expansão <span class="math inline">\(n/N\)</span>.</p>
+<hr>
+</section>
+<section id="esperança-da-soma-dos-quadrados" class="level3">
+<h3 class="anchored" data-anchor-id="esperança-da-soma-dos-quadrados">3. Esperança da Soma dos Quadrados</h3>
+<p>Agora, queremos a esperança da soma dos quadrados dos elementos da amostra:</p>
+<p><span class="math display">\[
+E\left[\sum_{i=1}^{n} y_i^2\right] = \frac{n}{N} \sum_{i=1}^{N} y_i^2
+\]</span></p>
+<p>Assim como no caso da soma simples, a soma dos quadrados também é proporcional à soma dos quadrados populacional, com o mesmo fator <span class="math inline">\(n/N\)</span>.</p>
+<hr>
+</section>
+<section id="resumo" class="level3">
+<h3 class="anchored" data-anchor-id="resumo">Resumo</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estatística</th>
+<th>Valor Esperado</th>
+<th>Interpretação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Média amostral <span class="math inline">\(\bar{y}\)</span></td>
+<td><span class="math inline">\(\bar{Y}\)</span></td>
+<td>Não viesada</td>
+</tr>
+<tr class="even">
+<td>Soma na amostra <span class="math inline">\(\sum y_i\)</span></td>
+<td><span class="math inline">\(\frac{n}{N} \sum Y_i\)</span></td>
+<td>Proporcional à soma da população</td>
+</tr>
+<tr class="odd">
+<td>Soma dos quadrados <span class="math inline">\(\sum y_i^2\)</span></td>
+<td><span class="math inline">\(\frac{n}{N} \sum Y_i^2\)</span></td>
+<td>Proporcional à soma dos quadrados da população</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="cálculo-da-variância-das-observações-na-população" class="level3">
+<h3 class="anchored" data-anchor-id="cálculo-da-variância-das-observações-na-população">Cálculo da Variância das Observações na População</h3>
+<p>A <strong>variância populacional</strong> <span class="math inline">\(S^2\)</span> mede a dispersão dos valores em relação à média da população <span class="math inline">\(\bar{Y}\)</span>. Existem diferentes formas algébricas para calcular essa variância, todas equivalentes.</p>
+<hr>
+<section id="fórmula-tradicional-da-variância-populacional" class="level4">
+<h4 class="anchored" data-anchor-id="fórmula-tradicional-da-variância-populacional">Fórmula tradicional da variância populacional</h4>
+<p>A fórmula principal é:</p>
+<p><span class="math display">\[
+S^2 = \frac{1}{N - 1} \sum_{i=1}^{N} (y_i - \bar{Y})^2
+\]</span></p>
+<hr>
+</section>
+<section id="forma-equivalente-usando-a-decomposição-algébrica" class="level4">
+<h4 class="anchored" data-anchor-id="forma-equivalente-usando-a-decomposição-algébrica">Forma equivalente usando a decomposição algébrica</h4>
+<p>Expandindo o quadrado da diferença, obtemos uma forma alternativa:</p>
+<p><span class="math display">\[
+S^2 = \frac{1}{N - 1} \left( \sum_{i=1}^{N} y_i^2 - \frac{\left( \sum_{i=1}^{N} y_i \right)^2}{N} \right)
+\]</span></p>
+<hr>
+</section>
+<section id="forma-mais-compacta-com-média" class="level4">
+<h4 class="anchored" data-anchor-id="forma-mais-compacta-com-média">Forma mais compacta com média</h4>
+<p>Lembrando que:</p>
+<p><span class="math display">\[
+\bar{Y} = \frac{1}{N} \sum_{i=1}^{N} y_i
+\]</span></p>
+<p>Podemos reescrever a variância como:</p>
+<p><span class="math display">\[
+S^2 = \frac{1}{N - 1} \left( \sum_{i=1}^{N} y_i^2 - N \bar{Y}^2 \right)
+\]</span></p>
+<p>Essa forma é útil quando já temos a média <span class="math inline">\(\bar{Y}\)</span> e o somatório dos quadrados <span class="math inline">\(\sum y_i^2\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="observação-visual-imagem" class="level3">
+<h3 class="anchored" data-anchor-id="observação-visual-imagem">Observação visual (imagem)</h3>
+<p>A imagem da lousa mostra essas três expressões de forma sequencial, reforçando a ideia de que <strong>todas são formas válidas de calcular a variância da população</strong> a partir dos dados.</p>
+<hr>
+</section>
+<section id="resumo-1" class="level3">
+<h3 class="anchored" data-anchor-id="resumo-1">Resumo</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Forma</th>
+<th>Expressão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Forma 1</td>
+<td><span class="math inline">\(S^2 = \frac{1}{N - 1} \sum (y_i - \bar{Y})^2\)</span></td>
+</tr>
+<tr class="even">
+<td>Forma 2</td>
+<td><span class="math inline">\(S^2 = \frac{1}{N - 1} \left( \sum y_i^2 - \frac{(\sum y_i)^2}{N} \right)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Forma 3</td>
+<td><span class="math inline">\(S^2 = \frac{1}{N - 1} \left( \sum y_i^2 - N \bar{Y}^2 \right)\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>Essas fórmulas são a base para o desenvolvimento de estimadores da variância em amostras, que será aprofundado nas próximas aulas.</p>
+<hr>
+</section>
+</section>
+<section id="teorema-2-variância-da-média-amostral" class="level2">
+<h2 class="anchored" data-anchor-id="teorema-2-variância-da-média-amostral">Teorema 2 — Variância da Média Amostral</h2>
+<p>A variância da média amostral <span class="math inline">\(\bar{y}\)</span>, obtida por amostragem aleatória simples <strong>sem reposição</strong>, é dada por:</p>
+<p><span class="math display">\[
+V(\bar{y}) = \left( \frac{N - n}{N} \right) \frac{S^2}{n}
+\]</span></p>
+<ul>
+<li>O fator <span class="math inline">\(\left( \frac{N - n}{N} \right)\)</span> é chamado de <strong>fator de correção para população finita</strong>.<br>
+</li>
+<li>Esse fator se aproxima de 1 quando <span class="math inline">\(N\)</span> é muito grande em relação a <span class="math inline">\(n\)</span>, ou seja, quando a amostra é pequena comparada à população.</li>
+</ul>
+<hr>
+<section id="demonstração" class="level3">
+<h3 class="anchored" data-anchor-id="demonstração">Demonstração</h3>
+<p>Começamos manipulando a definição da média amostral:</p>
+<p><span class="math display">\[
+n(\bar{y} - \bar{Y}) = n\left( \frac{1}{n} \sum_{i=1}^{n} y_i - \bar{Y} \right)
+= \sum_{i=1}^{n} y_i - n\bar{Y}
+\]</span></p>
+<p>Expandindo a soma:</p>
+<p><span class="math display">\[
+= (y_1 - \bar{Y}) + (y_2 - \bar{Y}) + \cdots + (y_n - \bar{Y})
+\]</span></p>
+<p>Elevando ao quadrado:</p>
+<p><span class="math display">\[
+n^2 (\bar{y} - \bar{Y})^2 = \left( \sum_{i=1}^{n} (y_i - \bar{Y}) \right)^2
+= \sum_{i=1}^{n} (y_i - \bar{Y})^2 + 2 \sum_{i&lt;j} (y_i - \bar{Y})(y_j - \bar{Y})
+\]</span></p>
+<p>🔎 <strong>Explicação</strong>: Aqui usamos a identidade algébrica da expansão do quadrado da soma: <span class="math inline">\((a + b)^2 = a^2 + 2ab\)</span> — no caso, aplicada a várias variáveis.</p>
+<p>Aplicando o valor esperado:</p>
+<p><span class="math display">\[
+n^2 \mathbb{E}\left[ (\bar{y} - \bar{Y})^2 \right]
+= \mathbb{E} \left[ \sum_{i=1}^{n} (y_i - \bar{Y})^2 \right]
++ 2 \mathbb{E} \left[ \sum_{i&lt;j}^{\text{amostra}} (y_i - \bar{Y})(y_j - \bar{Y}) \right]
+\]</span></p>
+<p>Sabemos que:</p>
+<p><span class="math display">\[
+\mathbb{E} \left[ \sum_{i=1}^{n} (y_i - \bar{Y})^2 \right] = \frac{n}{N} \sum_{i=1}^{N} (y_i - \bar{Y})^2
+\]</span></p>
+<p>E também:</p>
+<p><span class="math display">\[
+\mathbb{E} \left[ \sum_{i&lt;j}^{\text{amostra}} (y_i - \bar{Y})(y_j - \bar{Y}) \right]
+= \frac{\binom{n}{2}}{\binom{N}{2}} \sum_{i&lt;j}^{\text{população}} (y_i - \bar{Y})(y_j - \bar{Y})
+\]</span></p>
+<p><strong>Intuição</strong>: A covariância entre dois elementos distintos da amostra é negativa quando a amostragem é sem reposição. Esse segundo termo da soma traz esse ajuste.</p>
+<p>Cálculo dos coeficientes combinatórios:</p>
+<p><span class="math display">\[
+\frac{\binom{n}{2}}{\binom{N}{2}} = \frac{n(n - 1)}{N(N - 1)}
+\]</span></p>
+<p>Substituindo tudo:</p>
+<p><span class="math display">\[
+n^2 V(\bar{y}) = \frac{n}{N} \sum_{i=1}^{N} (y_i - \bar{Y})^2
++ 2 \cdot \frac{n(n - 1)}{N(N - 1)} \sum_{i&lt;j}^{\text{população}} (y_i - \bar{Y})(y_j - \bar{Y})
+\]</span></p>
+<hr>
+</section>
+<section id="observações-algébricas" class="level3">
+<h3 class="anchored" data-anchor-id="observações-algébricas">Observações Algébricas</h3>
+<p>Vamos aplicar a identidade:</p>
+<p><span class="math display">\[
+\sum_{i&lt;j} (y_i - \bar{Y})(y_j - \bar{Y}) = \frac{1}{2} \left[ \left( \sum_{i=1}^{N} (y_i - \bar{Y}) \right)^2 - \sum_{i=1}^{N} (y_i - \bar{Y})^2 \right]
+\]</span></p>
+<p>Como:</p>
+<p><span class="math display">\[
+\sum_{i=1}^{N} (y_i - \bar{Y}) = 0 \Rightarrow \left( \sum_{i=1}^{N} (y_i - \bar{Y}) \right)^2 = 0
+\]</span></p>
+<p>Então:</p>
+<p><span class="math display">\[
+\sum_{i&lt;j} (y_i - \bar{Y})(y_j - \bar{Y}) = -\frac{1}{2} \sum_{i=1}^{N} (y_i - \bar{Y})^2
+\]</span></p>
+<p>Substituindo isso:</p>
+<p><span class="math display">\[
+n^2 V(\bar{y}) = \left( \frac{n}{N} - \frac{n(n - 1)}{N(N - 1)} \right) \sum_{i=1}^{N} (y_i - \bar{Y})^2
+\]</span></p>
+<p>Simplificando:</p>
+<p><span class="math display">\[
+V(\bar{y}) = \frac{1}{nN} \sum_{i=1}^{N} (y_i - \bar{Y})^2 \left( \frac{N - n}{N - 1} \right)
+\]</span></p>
+<p>E substituímos a soma pelo valor equivalente da variância:</p>
+<p><span class="math display">\[
+\sum_{i=1}^{N} (y_i - \bar{Y})^2 = (N - 1) S^2
+\]</span></p>
+<p>Portanto:</p>
+<p><span class="math display">\[
+V(\bar{y}) = \frac{1}{nN} \cdot (N - 1) S^2 \cdot \frac{N - n}{N - 1}
+\]</span></p>
+<p>Cancelando:</p>
+<p><span class="math display">\[
+V(\bar{y}) = \left( \frac{N - n}{N} \right) \cdot \frac{S^2}{n}
+\]</span></p>
+<hr>
+</section>
+<section id="explicação-intuitiva" class="level3">
+<h3 class="anchored" data-anchor-id="explicação-intuitiva">Explicação Intuitiva</h3>
+<ul>
+<li>Quando <strong>n aumenta</strong>, o fator <span class="math inline">\(\frac{N - n}{N}\)</span> <strong>diminui</strong>, ou seja, a variância da média amostral <strong>fica menor</strong> — intuitivamente, <strong>quanto maior a amostra, mais preciso o estimador</strong>.</li>
+<li>O termo <span class="math inline">\(S^2\)</span> é a variância da população: quanto mais dispersos os dados, maior será a variância da média amostral.</li>
+<li>O denominador <span class="math inline">\(n\)</span> mostra que estamos dividindo a dispersão total entre os <span class="math inline">\(n\)</span> elementos da amostra — exatamente o esperado para uma média.</li>
+</ul>
+<hr>
+</section>
+<section id="resumo-da-prova-do-teorema-2" class="level3">
+<h3 class="anchored" data-anchor-id="resumo-da-prova-do-teorema-2">Resumo da Prova do Teorema 2</h3>
+<ul>
+<li><strong>Passo 1</strong>: Expandimos <span class="math inline">\(n^2(\bar{y} - \bar{Y})^2\)</span> para obter soma de quadrados e produto cruzado.</li>
+<li><strong>Passo 2</strong>: Aplicamos o valor esperado em cada parte, separadamente.</li>
+<li><strong>Passo 3</strong>: Usamos identidades de somatórios e combinatórias para expressar tudo em termos da variância populacional.</li>
+<li><strong>Passo 4</strong>: Substituímos <span class="math inline">\(\sum (y_i - \bar{Y})^2 = (N - 1)S^2\)</span>.</li>
+<li><strong>Conclusão</strong>: Obtemos a fórmula final:</li>
+</ul>
+<p><span class="math display">\[
+V(\bar{y}) = \left( \frac{N - n}{N} \right) \cdot \frac{S^2}{n}
+\]</span></p>
+<hr>
+</section>
+<section id="conclusão" class="level3">
+<h3 class="anchored" data-anchor-id="conclusão">Conclusão</h3>
+<ul>
+<li>A variância da média amostral <span class="math inline">\(\bar{y}\)</span> diminui à medida que a amostra cresce (<span class="math inline">\(n\)</span> aumenta).</li>
+<li>A presença do fator <span class="math inline">\(\frac{N - n}{N}\)</span> mostra que <strong>quanto menor a amostra em relação à população, maior a variância esperada da média</strong>.</li>
+<li>Esse resultado é crucial para <strong>dimensionar o tamanho amostral</strong> em estudos estatísticos.</li>
+</ul>
+<hr>
+</section>
+<section id="observação-final" class="level3">
+<h3 class="anchored" data-anchor-id="observação-final">Observação Final</h3>
+<p>A figura complementar da lousa mostra o universo das possíveis amostras <span class="math inline">\(\bar{y}_1, \bar{y}_2, \dots, \bar{y}_m\)</span> e como todas têm o <strong>mesmo peso na esperança</strong> da média, reforçando que <span class="math inline">\(\mathbb{E}[\bar{y}] = \bar{Y}\)</span> e que a variância de <span class="math inline">\(\bar{y}\)</span> depende da dispersão dos dados na população (<span class="math inline">\(S^2\)</span>) e do tamanho amostral.</p>
+<hr>
+<p>Representação Ilustrativa: <img src="Imagem/Semana3_aula01_teorema2_parte1.png" class="img-fluid" alt="Quadro da aula 01 parte 1 - Semana 3"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Imagem/Semana3_aula01_teorema2_parte2.png" class="img-fluid figure-img"></p>
+<figcaption>Quadro da aula 01 parte 1 - Semana 3</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Imagem/Semana3_aula01_teorema2_parte3.png" class="img-fluid figure-img"></p>
+<figcaption>Quadro da aula 01 parte 1 - Semana 3</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Imagem/Semana3_aula01_teorema2_parte4.png" class="img-fluid figure-img"></p>
+<figcaption>Quadro da aula 01 parte 1 - Semana 3</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="aula-02---introdução-ao-erro-padrão-da-média-desvio-padrão-da-média" class="level2">
+<h2 class="anchored" data-anchor-id="aula-02---introdução-ao-erro-padrão-da-média-desvio-padrão-da-média"><a href="https://youtu.be/okFoWFYZ8WQ?si=AhZ5NLA470R-vzrd">Aula 02 - Introdução ao Erro Padrão da Média (Desvio Padrão da Média)</a></h2>
+<hr>
+<section id="teorema-1" class="level3">
+<h3 class="anchored" data-anchor-id="teorema-1">Teorema 1</h3>
+<p>A esperança da média amostral <span class="math inline">\(\bar{y}\)</span> é igual à média populacional <span class="math inline">\(\bar{Y}\)</span>:</p>
+<p><span class="math display">\[
+\mathbb{E}[\bar{y}] = \bar{Y}
+\]</span></p>
+<hr>
+</section>
+<section id="teorema-2" class="level3">
+<h3 class="anchored" data-anchor-id="teorema-2">Teorema 2</h3>
+<p>A variância da média amostral, em amostragem <strong>sem reposição</strong>, é dada por:</p>
+<p><span class="math display">\[
+V(\bar{y}) = \left( \frac{N - n}{N} \right) \cdot \frac{S^2}{n}
+\]</span></p>
+<hr>
+</section>
+<section id="erro-padrão-da-média-amostral" class="level3">
+<h3 class="anchored" data-anchor-id="erro-padrão-da-média-amostral">Erro Padrão da Média Amostral</h3>
+<p>A raiz quadrada da variância da média amostral define o <strong>Erro Padrão da Média Amostral</strong>:</p>
+<p><span class="math display">\[
+EP(\bar{y}) = \sqrt{V(\bar{y})}
+\]</span></p>
+<p>Este valor indica o desvio esperado da média amostral em relação à média populacional. Em outras palavras, o erro padrão da média mede <strong>a variabilidade entre as médias amostrais</strong> ao se repetir a amostragem várias vezes.</p>
+<hr>
+</section>
+<section id="interpretação-intuitiva" class="level3">
+<h3 class="anchored" data-anchor-id="interpretação-intuitiva">Interpretação Intuitiva</h3>
+<p>Imagine todas as possíveis amostras de tamanho <span class="math inline">\(n\)</span> retiradas de uma população de tamanho <span class="math inline">\(N\)</span>. Cada amostra produzirá uma média <span class="math inline">\(\bar{y}_1, \bar{y}_2, \dots, \bar{y}_m\)</span>.</p>
+<p>A variância entre essas médias é exatamente <span class="math inline">\(V(\bar{y})\)</span>, e sua raiz quadrada é o <strong>erro padrão</strong>.</p>
+<p>Assim:</p>
+<ul>
+<li>A esperança de cada <span class="math inline">\(\bar{y}_k\)</span> é igual a <span class="math inline">\(\bar{Y}\)</span>.</li>
+<li>A média das diferenças <span class="math inline">\((\bar{y}_k - \bar{Y})\)</span> é zero.</li>
+<li>A variância das médias amostrais mede o <strong>quão espalhadas</strong> elas estão em torno de <span class="math inline">\(\bar{Y}\)</span>.</li>
+</ul>
+<hr>
+</section>
+<section id="propriedade-importante-soma-dos-desvios" class="level3">
+<h3 class="anchored" data-anchor-id="propriedade-importante-soma-dos-desvios">Propriedade Importante: Soma dos Desvios</h3>
+<p>Sabemos que a soma dos desvios em relação à média populacional é zero:</p>
+<p><span class="math display">\[
+\sum_{i=1}^{N} (y_i - \bar{Y}) = 0
+\]</span></p>
+<p>Logo, ao fazer:</p>
+<p><span class="math display">\[
+\sum_{k=1}^{m} (\bar{y}_k - \bar{Y}) = 0
+\]</span></p>
+<p>A soma dos quadrados dos desvios é o que contribui para a variância:</p>
+<p><span class="math display">\[
+V(\bar{y}) = \mathbb{E} \left[ (\bar{y} - \bar{Y})^2 \right]
+\]</span></p>
+<hr>
+</section>
+<section id="caso-especial-censo" class="level3">
+<h3 class="anchored" data-anchor-id="caso-especial-censo">Caso Especial: Censo</h3>
+<p>Se fizermos um <strong>censo</strong>, ou seja, <span class="math inline">\(n = N\)</span>, então:</p>
+<p><span class="math display">\[
+V(\bar{y}) = \left( \frac{N - N}{N} \right) \cdot \frac{S^2}{N} = 0
+\]</span></p>
+<p>Neste caso:</p>
+<ul>
+<li>Não há erro de estimação.</li>
+<li>O erro padrão da média amostral é:</li>
+</ul>
+<p><span class="math display">\[
+EP(\bar{y}) = 0
+\]</span></p>
+<p>A variabilidade desaparece, pois temos a informação completa da população.</p>
+<hr>
+</section>
+<section id="fórmula-da-variância-populacional" class="level3">
+<h3 class="anchored" data-anchor-id="fórmula-da-variância-populacional">Fórmula da Variância Populacional</h3>
+<p>A variância populacional <span class="math inline">\(S^2\)</span> é dada por:</p>
+<p><span class="math display">\[
+S^2 = \frac{1}{N - 1} \sum_{i=1}^{N} (y_i - \bar{Y})^2
+\]</span></p>
+<p>É esse valor que aparece na fórmula de <span class="math inline">\(V(\bar{y})\)</span>, multiplicado pelo fator de correção finita <span class="math inline">\(\frac{N - n}{N}\)</span> e dividido pelo tamanho da amostra <span class="math inline">\(n\)</span>.</p>
+<hr>
+</section>
+<section id="conclusão-1" class="level3">
+<h3 class="anchored" data-anchor-id="conclusão-1">Conclusão</h3>
+<ul>
+<li>O erro padrão da média expressa a <strong>precisão</strong> da média amostral como estimador de <span class="math inline">\(\bar{Y}\)</span>.</li>
+<li>Quanto maior a amostra (<span class="math inline">\(n\)</span>), menor o erro padrão.</li>
+<li>Se <span class="math inline">\(n = N\)</span>, o erro é zero (cenário de censo).</li>
+</ul>
+<p>Quadro da aula:</p>
+<p>Parte 1: <img src="Imagem/Semana3_aula02_introducao_erro_padrao_parte1.png" class="img-fluid" alt="Quadro da aula 02 parte 1 - Semana 3"></p>
+<p>Parte 2: <img src="Imagem/Semana3_aula02_introducao_erro_padrao_parte2.png" class="img-fluid" alt="Quadro da aula 02 parte 1 - Semana 3"></p>
+<p>Parte 3: <img src="Imagem/Semana3_aula02_introducao_erro_padrao_parte3.png" class="img-fluid" alt="Quadro da aula 02 parte 1 - Semana 3"></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lucas-magalhaes\.quarto\.pub\/amostragem-ce302");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
