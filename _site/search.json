@@ -4,14 +4,21 @@
     "href": "index.html",
     "title": "Lucas Magalhães Ast",
     "section": "",
-    "text": "Aqui você encontrará meus projetos acadêmicos, profissionais e pessoais na área de estatística e economia.\n\n\n\nProjeto de Amostragem\nObjetivo: consolidar as anotações das aulas da disciplina de Amostragem, facilitando o entendimento dos fundamentos teóricos e sua aplicação em situações práticas que envolvem métodos de amostragem.\nProjeto de Regressão Linear\nObjetivo: compreender de forma simples o funcionamento da regressão linear, desde suas definições até a aplicação em análises práticas.\n\n\nDesenvolvido com Quarto."
+    "text": "Aqui você encontrará meus projetos acadêmicos, profissionais e pessoais na área de estatística e economia.\n\n\n\nProjeto de Amostragem\nObjetivo: consolidar as anotações das aulas da disciplina de Amostragem, facilitando o entendimento dos fundamentos teóricos e sua aplicação em situações práticas que envolvem métodos de amostragem.\nProjeto de Regressão Linear\nObjetivo: compreender de forma simples o funcionamento da regressão linear, desde suas definições até a aplicação em análises práticas.\n\n\n\n\nDesenvolvido com Quarto."
   },
   {
     "objectID": "index.html#projetos",
     "href": "index.html#projetos",
     "title": "Lucas Magalhães Ast",
     "section": "",
-    "text": "Projeto de Amostragem\nObjetivo: consolidar as anotações das aulas da disciplina de Amostragem, facilitando o entendimento dos fundamentos teóricos e sua aplicação em situações práticas que envolvem métodos de amostragem.\nProjeto de Regressão Linear\nObjetivo: compreender de forma simples o funcionamento da regressão linear, desde suas definições até a aplicação em análises práticas.\n\n\nDesenvolvido com Quarto."
+    "text": "Projeto de Amostragem\nObjetivo: consolidar as anotações das aulas da disciplina de Amostragem, facilitando o entendimento dos fundamentos teóricos e sua aplicação em situações práticas que envolvem métodos de amostragem.\nProjeto de Regressão Linear\nObjetivo: compreender de forma simples o funcionamento da regressão linear, desde suas definições até a aplicação em análises práticas."
+  },
+  {
+    "objectID": "index.html#teste-1-2-3",
+    "href": "index.html#teste-1-2-3",
+    "title": "Lucas Magalhães Ast",
+    "section": "",
+    "text": "Desenvolvido com Quarto."
   },
   {
     "objectID": "academico/projeto_regressao_linear/regressao_linear.html",
@@ -569,7 +576,7 @@
     "href": "academico/projeto_regressao_linear/index.html#conteúdos",
     "title": "Início",
     "section": "Conteúdos",
-    "text": "Conteúdos\n\nO que é Regressão Linear\nRegressão Linear Simples\nO que é Coeficiente Angular (\\(\\beta_1\\))\nO que é o Erro (\\(\\varepsilon\\))\nExemplo de Regressão Linear Simples\nCálculo dos Coeficientes\nExemplo Prático em Pyhton (Regressão Linear Simples)\nRegressão Linear Múltipla\nExemplo Prático em Python (Regressão Linear Múltipla)\nExemplo Prático com gráfico Comparando a Regressão Linear Simples e Múltipla\nInterpretação e Limitações Preditivas da Regressão Linear\n\n\n⬅ Voltar ao Portfólio Acadêmico",
+    "text": "Conteúdos\n\nO que é Regressão Linear\nRegressão Linear Simples\nO que é Coeficiente Angular (\\(\\beta_1\\))\nO que é o Erro (\\(\\varepsilon\\))\nExemplo de Regressão Linear Simples\nCálculo dos Coeficientes\nExemplo Prático em Pyhton (Regressão Linear Simples)\nRegressão Linear Múltipla\nExemplo Prático em Python (Regressão Linear Múltipla)\nExemplo Prático com gráfico Comparando a Regressão Linear Simples e Múltipla\nInterpretação e Limitações Preditivas da Regressão Linear\n\n\n⬅ Voltar ao Portfólio",
     "crumbs": [
       "Início"
     ]
